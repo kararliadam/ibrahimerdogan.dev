@@ -1,0 +1,210 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #272727;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.scene {
+  width: min(100%, 1200px);
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: clamp(6px, 1.2vw, 10px);
+  align-items: center;
+  justify-content: center;
+  background: #dcdde8;
+  border-radius: 22px;
+  padding: clamp(10px, 2vw, 18px);
+
+  /* The keyboard body depth */
+  box-shadow:
+    0 2px 0px 0px #b8b9cc inset,
+    0 -3px 0px 0px #f2f2f8 inset,
+    2px 0 0px 0px #c8c9d8 inset,
+    -2px 0 0px 0px #c8c9d8 inset,
+    0 8px 0px 0px #a8a9bc,
+    0 9px 3px 0px rgba(0,0,0,0.18),
+    0 14px 28px 0px rgba(0,0,0,0.14);
+}
+
+.key {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  background: #f0f0f2;
+  border-radius: clamp(10px, 1.6vw, 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: clamp(6px, 1.2vw, 12px) clamp(8px, 1.4vw, 14px);
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+
+  box-shadow:
+    0 1px 0px 0px #ffffff inset,
+    0 -1px 0px 0px #c8c8cc inset,
+    1px 0 0px 0px #e0e0e4 inset,
+    -1px 0 0px 0px #e0e0e4 inset,
+    0 5px 0px 0px #b2b2be,
+    0 6px 2px 0px rgba(0,0,0,0.14),
+    0 8px 14px 0px rgba(0,0,0,0.10);
+
+  transition: transform 0.07s ease, box-shadow 0.07s ease, background 0.07s ease;
+}
+
+.key:active,
+.key.pressed {
+  background: #e8e8ea;
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0px 0px #ffffff inset,
+    0 -1px 0px 0px #c0c0c4 inset,
+    1px 0 0px 0px #d8d8dc inset,
+    -1px 0 0px 0px #d8d8dc inset,
+    0 1px 0px 0px #b2b2be,
+    0 2px 3px 0px rgba(0,0,0,0.10);
+}
+
+.key .icon {
+  align-self: flex-start;
+  font-size: clamp(16px, 2.5vw, 28px);
+  color: #272727;
+  line-height: 1;
+  font-weight: 300;
+}
+
+#i,
+#b,
+#r,
+#a,
+#h,
+#m
+{
+  align-items: center;
+  justify-content: center;
+}
+
+#i .icon,
+#b .icon,
+#r .icon,
+#a .icon,
+#h .icon,
+#m .icon 
+{
+  align-self: center;
+  font-size: clamp(22px, 3.7vw, 44px);
+  color: #272727;
+  font-weight: 300;
+  letter-spacing: -1px;
+}
+
+.key .label {
+  font-size: clamp(9px, 1.2vw, 13px);
+  color: #272727;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  align-self: flex-end;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 12px;
+  }
+
+  .scene {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .keyboard {
+    gap: 4px;
+    padding: 8px;
+    border-radius: 16px;
+    box-shadow:
+      0 2px 0 0 #b8b9cc inset,
+      0 -2px 0 0 #f2f2f8 inset,
+      1px 0 0 0 #c8c9d8 inset,
+      -1px 0 0 0 #c8c9d8 inset,
+      0 5px 0 0 #a8a9bc,
+      0 6px 2px 0 rgba(0,0,0,0.15),
+      0 8px 14px 0 rgba(0,0,0,0.12);
+  }
+
+  .key {
+    border-radius: 10px;
+    padding: 5px 6px;
+    box-shadow:
+      0 1px 0 0 #ffffff inset,
+      0 -1px 0 0 #c8c8cc inset,
+      1px 0 0 0 #e0e0e4 inset,
+      -1px 0 0 0 #e0e0e4 inset,
+      0 3px 0 0 #b2b2be,
+      0 4px 2px 0 rgba(0,0,0,0.12),
+      0 5px 8px 0 rgba(0,0,0,0.08);
+  }
+
+  .key .icon {
+    font-size: 14px;
+  }
+
+  #i .icon,
+  #b .icon,
+  #r .icon,
+  #a .icon,
+  #h .icon,
+  #m .icon {
+    font-size: 24px;
+  }
+
+  .key .label {
+    font-size: 8px;
+  }
+
+  .key:active,
+  .key.pressed {
+    box-shadow:
+      0 1px 0 0 #ffffff inset,
+      0 -1px 0 0 #c0c0c4 inset,
+      1px 0 0 0 #d8d8dc inset,
+      -1px 0 0 0 #d8d8dc inset,
+      0 1px 0 0 #b2b2be,
+      0 1px 2px 0 rgba(0,0,0,0.08);
+  }
+
+  #cmd .label {
+    font-size: 7px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(216, 145, 145, 0.06);
+  transform: scale(0);
+  animation: ripple 0.4s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}

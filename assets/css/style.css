@@ -1,3 +1,5 @@
+/* İbrahim Erdoğan - https://ibrahimerdogan.dev */
+
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +7,7 @@
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,7 +125,9 @@ body {
 
 @media (max-width: 640px) {
   body {
+    min-height: 100svh;
     padding: 12px;
+    overflow: hidden;
   }
 
   .scene {

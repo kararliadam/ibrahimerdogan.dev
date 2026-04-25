@@ -83,7 +83,7 @@ body {
 }
 
 .key .icon {
-  align-self: flex-start;
+  align-self: flex-end;
   font-size: clamp(16px, 2.5vw, 28px);
   color: #272727;
   line-height: 1;
@@ -191,7 +191,7 @@ body {
   }
 
   #cmd .label {
-    font-size: 7px;
+    font-size: 6px;
     letter-spacing: 0;
     white-space: nowrap;
   }

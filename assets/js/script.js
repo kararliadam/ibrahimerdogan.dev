@@ -1,3 +1,30 @@
+const keyMap = {
+   Meta: "cmd",
+   Control: "cmd",
+   i: "i",
+   İ: "i",
+   ı: "i",
+   I: "i",
+   b: "b",
+   B: "b",
+   r: "r",
+   R: "r",
+   a: "a",
+   A: "a",
+   h: "h",
+   H: "h",
+   m: "m",
+   M: "m",
+};
+
+function setKeyPressed(key, pressed) {
+   const mapped = keyMap[key];
+   if (!mapped) return;
+   document.querySelectorAll(`[data-key="${mapped}"]`).forEach((el) => {
+      el.classList.toggle("pressed", pressed);
+   });
+}
+
 document.querySelectorAll(".key").forEach((key) => {
    key.addEventListener("pointerdown", function (e) {
       this.classList.add("pressed");
@@ -25,50 +52,58 @@ document.querySelectorAll(".key").forEach((key) => {
    });
 });
 
+const secret = "ibrahim";
+let progress = 0;
+
+function normalizeLetter(key) {
+   if (key === "İ" || key === "I" || key === "ı") return "i";
+   return key.toLowerCase();
+}
+
+function fireConfetti() {
+   const defaults = {
+      origin: { y: 0.7 },
+      colors: ["#f0f0f2", "#d89191", "#dcdde8", "#ffffff", "#b2b2be"],
+   };
+
+   confetti({ ...defaults, particleCount: 80, spread: 55, scalar: 1.1 });
+   confetti({ ...defaults, particleCount: 40, spread: 100, decay: 0.91, scalar: 0.9 });
+   confetti({
+      ...defaults,
+      particleCount: 60,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0, y: 0.7 },
+   });
+   confetti({
+      ...defaults,
+      particleCount: 60,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1, y: 0.7 },
+   });
+}
+
 window.addEventListener("keydown", (e) => {
-   if (e.key === "Meta" || e.key === "Control") {
-      document.getElementById("cmd").classList.add("pressed");
+   if (e.repeat) return;
+
+   setKeyPressed(e.key, true);
+
+   const letter = normalizeLetter(e.key);
+   if (letter.length !== 1) return;
+
+   if (letter === secret[progress]) {
+      progress += 1;
+      if (progress === secret.length) {
+         fireConfetti();
+         progress = 0;
+      }
+      return;
    }
-   if (e.key === "i" || e.key === "İ") {
-      document.getElementById("i").classList.add("pressed");
-   }
-   if (e.key === "b" || e.key === "B") {
-      document.getElementById("b").classList.add("pressed");
-   }
-   if (e.key === "r" || e.key === "R") {
-      document.getElementById("r").classList.add("pressed");
-   }
-   if (e.key === "a" || e.key === "A") {
-      document.getElementById("a").classList.add("pressed");
-   }
-   if (e.key === "h" || e.key === "H") {
-      document.getElementById("h").classList.add("pressed");
-   }
-   if (e.key === "m" || e.key === "M") {
-      document.getElementById("m").classList.add("pressed");
-   }
+
+   progress = letter === secret[0] ? 1 : 0;
 });
 
 window.addEventListener("keyup", (e) => {
-   if (e.key === "Meta" || e.key === "Control") {
-      document.getElementById("cmd").classList.remove("pressed");
-   }
-   if (e.key === "i" || e.key === "İ") {
-      document.getElementById("i").classList.remove("pressed");
-   }
-   if (e.key === "b" || e.key === "B") {
-      document.getElementById("b").classList.remove("pressed");
-   }
-   if (e.key === "r" || e.key === "R") {
-      document.getElementById("r").classList.remove("pressed");
-   }
-   if (e.key === "a" || e.key === "A") {
-      document.getElementById("a").classList.remove("pressed");
-   }
-   if (e.key === "h" || e.key === "H") {
-      document.getElementById("h").classList.remove("pressed");
-   }
-    if (e.key === "m" || e.key === "M") {
-      document.getElementById("m").classList.remove("pressed");
-   }
+   setKeyPressed(e.key, false);
 });

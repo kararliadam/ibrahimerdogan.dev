@@ -90,24 +90,22 @@ body {
   font-weight: 300;
 }
 
-#i,
-#b,
-#r,
-#a,
-#h,
-#m
-{
+.key[data-key="i"],
+.key[data-key="b"],
+.key[data-key="r"],
+.key[data-key="a"],
+.key[data-key="h"],
+.key[data-key="m"] {
   align-items: center;
   justify-content: center;
 }
 
-#i .icon,
-#b .icon,
-#r .icon,
-#a .icon,
-#h .icon,
-#m .icon 
-{
+.key[data-key="i"] .icon,
+.key[data-key="b"] .icon,
+.key[data-key="r"] .icon,
+.key[data-key="a"] .icon,
+.key[data-key="h"] .icon,
+.key[data-key="m"] .icon {
   align-self: center;
   font-size: clamp(22px, 3.7vw, 44px);
   color: #272727;
@@ -166,12 +164,12 @@ body {
     font-size: 14px;
   }
 
-  #i .icon,
-  #b .icon,
-  #r .icon,
-  #a .icon,
-  #h .icon,
-  #m .icon {
+  .key[data-key="i"] .icon,
+  .key[data-key="b"] .icon,
+  .key[data-key="r"] .icon,
+  .key[data-key="a"] .icon,
+  .key[data-key="h"] .icon,
+  .key[data-key="m"] .icon {
     font-size: 24px;
   }
 
@@ -190,7 +188,7 @@ body {
       0 1px 2px 0 rgba(0,0,0,0.08);
   }
 
-  #cmd .label {
+  .key[data-key="cmd"] .label {
     font-size: 6px;
     letter-spacing: 0;
     white-space: nowrap;

@@ -25,33 +25,6 @@ function setKeyPressed(key, pressed) {
    });
 }
 
-document.querySelectorAll(".key").forEach((key) => {
-   key.addEventListener("pointerdown", function (e) {
-      this.classList.add("pressed");
-
-      const rect = this.getBoundingClientRect();
-      const ripple = document.createElement("span");
-      const size = Math.max(rect.width, rect.height);
-      ripple.classList.add("ripple");
-      ripple.style.cssText = `
-      width: ${size}px;
-      height: ${size}px;
-      left: ${e.clientX - rect.left - size / 2}px;
-      top: ${e.clientY - rect.top - size / 2}px;
-    `;
-      this.appendChild(ripple);
-      ripple.addEventListener("animationend", () => ripple.remove());
-   });
-
-   key.addEventListener("pointerup", function () {
-      this.classList.remove("pressed");
-   });
-
-   key.addEventListener("pointerleave", function () {
-      this.classList.remove("pressed");
-   });
-});
-
 const secret = "ibrahim";
 let progress = 0;
 
@@ -84,14 +57,7 @@ function fireConfetti() {
    });
 }
 
-window.addEventListener("keydown", (e) => {
-   if (e.repeat) return;
-
-   setKeyPressed(e.key, true);
-
-   const letter = normalizeLetter(e.key);
-   if (letter.length !== 1) return;
-
+function advanceSequence(letter) {
    if (letter === secret[progress]) {
       progress += 1;
       if (progress === secret.length) {
@@ -102,6 +68,47 @@ window.addEventListener("keydown", (e) => {
    }
 
    progress = letter === secret[0] ? 1 : 0;
+}
+
+document.querySelectorAll(".key").forEach((key) => {
+   key.addEventListener("pointerdown", function (e) {
+      this.classList.add("pressed");
+
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement("span");
+      const size = Math.max(rect.width, rect.height);
+      ripple.classList.add("ripple");
+      ripple.style.cssText = `
+      width: ${size}px;
+      height: ${size}px;
+      left: ${e.clientX - rect.left - size / 2}px;
+      top: ${e.clientY - rect.top - size / 2}px;
+    `;
+      this.appendChild(ripple);
+      ripple.addEventListener("animationend", () => ripple.remove());
+
+      const letter = this.dataset.key;
+      if (letter && letter !== "cmd") advanceSequence(letter);
+   });
+
+   key.addEventListener("pointerup", function () {
+      this.classList.remove("pressed");
+   });
+
+   key.addEventListener("pointerleave", function () {
+      this.classList.remove("pressed");
+   });
+});
+
+window.addEventListener("keydown", (e) => {
+   if (e.repeat) return;
+
+   setKeyPressed(e.key, true);
+
+   const letter = normalizeLetter(e.key);
+   if (letter.length !== 1) return;
+
+   advanceSequence(letter);
 });
 
 window.addEventListener("keyup", (e) => {
